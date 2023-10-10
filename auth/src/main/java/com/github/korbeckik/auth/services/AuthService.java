@@ -1,0 +1,44 @@
+package com.github.korbeckik.auth.services;
+
+import com.github.korbeckik.auth.dto.request.LoginRequest;
+import com.github.korbeckik.auth.dto.response.AuthResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import reactor.core.publisher.Mono;
+
+@Service
+@RequiredArgsConstructor
+public class AuthService {
+
+    private final JWTService jwtService;
+    private final PasswordEncoder passwordEncoder;
+    private final ReactiveUserDetailsService userDetailsService;
+
+    public Mono<ResponseEntity<?>> login(@RequestBody LoginRequest loginRequest) {
+        Mono<UserDetails> user = userDetailsService.findByUsername(loginRequest.email());
+        return user.flatMap(userDetails -> passwordEncoder.matches(loginRequest.password(), userDetails.getPassword())
+                ? generateSuccessLoginResponse(userDetails)
+                : generateFailureLoginResponse()
+        ).switchIfEmpty(generateFailureLoginResponse());
+    }
+
+    private Mono<ResponseEntity<AuthResponse>> generateSuccessLoginResponse(UserDetails userDetails) {
+        AuthResponse authResponse = AuthResponse.builder()
+                .name(userDetails.getUsername())
+                .build();
+        return Mono.just(ResponseEntity.ok()
+                .header(HttpHeaders.AUTHORIZATION, jwtService.generateToken(userDetails.getUsername()))
+                .body(authResponse));
+    }
+
+    private Mono<ResponseEntity<?>> generateFailureLoginResponse() {
+        return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+    }
+}

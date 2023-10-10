@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="202306051158-0" author="korbecki">
+       <createTable tableName="ACTIVATE">
+           <column name="ACTIVATE_ID" type="BIGSERIAL">
+               <constraints primaryKey="true" nullable="false"/>
+           </column>
+           <column name="IS_ACTIVATED" type="BOOL">
+               <constraints nullable="false"/>
+           </column>
+           <column name="CODE" type="VARCHAR(6)">
+               <constraints nullable="true"/>
+           </column>
+           <column name="STATUS" type="VARCHAR(50)">
+               <constraints nullable="false"/>
+           </column>
+           <column name="EXPIRED_AT" type="TIMESTAMP">
+               <constraints nullable="true"/>
+           </column>
+       </createTable>
+    </changeSet>
+
+    <changeSet id="202306051158-1" author="korbecki">
+        <addColumn tableName="USERS">
+            <column name="ACTIVATE_ID" type="BIGINT">
+                <constraints nullable="true" foreignKeyName="fk_user_activate" references="ACTIVATE(ACTIVATE_ID)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202306051158-2" author="korbecki">
+        <createProcedure encoding="UTF-8"
+                         path="procedure/fill_activate.sql"
+                         relativeToChangelogFile="true"
+                         procedureName="fill_activate"
+                         schemaName="public">
+        </createProcedure>
+    </changeSet>
+
+    <changeSet id="202306051158-3" author="korbecki">
+        <sqlFile path="trigger/user_activate_trigger.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="202306051158-4" author="korbecki">
+        <createView encoding="UTF-8"
+                     path="view/v_users.sql"
+                     relativeToChangelogFile="true"
+                     schemaName="public"
+                     replaceIfExists="true"
+                     viewName="V_SYSTEM_USER"/>
+    </changeSet>
+</databaseChangeLog>

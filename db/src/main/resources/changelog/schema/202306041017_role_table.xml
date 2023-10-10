@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="202306081017-0" author="korbecki">
+        <createTable tableName="roles" remarks="Used to store user roles">
+            <column name="role_id" type="smallserial" autoIncrement="true" remarks="The unique id to identify the role">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(15)" remarks="Role name">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="Stores the date and time at which the role is created">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202306081017-1" author="korbecki">
+        <createTable tableName="users_roles" remarks="Used to store user role">
+            <column name="role_id" type="smallint"  remarks="The unique ID of the the role">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint" remarks="The unique ID of the user">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                constraintName="user_role_role_fk"
+                baseTableName="USERS_ROLES"
+                baseColumnNames="role_id"
+                referencedTableName="ROLES"
+                referencedColumnNames="role_id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"/>
+
+        <addForeignKeyConstraint
+                constraintName="user_role_user_fk"
+                baseTableName="USERS_ROLES"
+                baseColumnNames="user_id"
+                referencedTableName="USERS"
+                referencedColumnNames="user_id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"/>
+
+    </changeSet>
+
+    <changeSet id="202306081017-2" author="korbecki">
+        <loadData file="data/role.csv" tableName="ROLES" relativeToChangelogFile="true"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="202305082137-0" author="korbecki">
+        <createTable tableName="FLASHCARDS">
+            <column name="FLASHCARD_ID" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ICON" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="IS_PUBLIC" type="BOOL" defaultValueComputed="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_flashcards_users" references="USERS(USER_ID)"/>
+            </column>
+            <column name="CREATED_AT" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202305082137-1" author="korbecki">
+        <createTable tableName="PAGES">
+            <column name="PAGE_ID" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="FLASHCARD_ID" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_page_flashcards" references="FLASHCARDS(FLASHCARD_ID)"/>
+            </column>
+            <column name="QUESTION" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="QUESTION_IMAGE" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ANSWER" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ANSWER_IMAGE" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="CREATED_AT" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202305082137-2" author="korbecki">
+        <createTable tableName="RESOLVED">
+            <column name="RESOLVED_ID" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="USER_ID" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_resolved_user" references="USERS(USER_ID)"/>
+            </column>
+            <column name="PAGE_ID" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_resolved_pages" references="PAGES(PAGE_ID)"/>
+            </column>
+            <column name="ANSWER" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_CORRECT" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_AT" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
