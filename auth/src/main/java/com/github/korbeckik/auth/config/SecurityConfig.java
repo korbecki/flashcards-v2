@@ -3,6 +3,8 @@ package com.github.korbeckik.auth.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -11,11 +13,14 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 
-@EnableWebFluxSecurity
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
+@EnableWebFluxSecurity
 public class SecurityConfig {
 
     @Bean
@@ -39,14 +44,15 @@ public class SecurityConfig {
         jwtFilter.setServerAuthenticationConverter(authConverter);
         return http.authorizeExchange(auth -> {
                     auth.pathMatchers("/login", "/register").permitAll();
-                    auth.pathMatchers("/test").hasAnyRole("USER");
+                    auth.pathMatchers("/test").hasAnyRole("ADMIN");
                     auth.anyExchange().authenticated();
 
-                })
-                .addFilterAt(jwtFilter, SecurityWebFiltersOrder.AUTHENTICATION)
-                .httpBasic().disable()
-                .formLogin().disable()
-                .csrf().disable()
+                }).addFilterAt(jwtFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+                .httpBasic(withDefaults())
+                .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
+                .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .build();
     }
+
+
 }

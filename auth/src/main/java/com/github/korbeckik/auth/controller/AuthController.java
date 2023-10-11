@@ -25,7 +25,6 @@ public class AuthController {
     private final AuthService authService;
 
     @GetMapping("/test")
-    @PreAuthorize("hasRole('USER')")
     public Mono<String> test() {
         return Mono.just("Hello");
     }
