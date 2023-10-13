@@ -1,6 +1,7 @@
 package com.github.korbeckik.auth.config;
 
 import com.github.korbeckik.auth.services.JWTService;
+import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
@@ -23,13 +24,13 @@ public class AuthManager implements ReactiveAuthenticationManager {
                 .cast(BearerToken.class)
                 .flatMap(auth -> {
                     String email = jwtService.extractUsername(auth.getCredentials());
-                    return userDetailsService.findByUsername(email).map(u -> {
+                    return userDetailsService.findByUsername(email).mapNotNull(u -> {
                         if (jwtService.validateToken(auth.getCredentials(), u)) {
                             return new UsernamePasswordAuthenticationToken(u.getUsername(), u.getPassword(), u.getAuthorities());
                         }
-                        throw new IllegalArgumentException("Invalid bearer token");
-
-                    });
+                        return null;
+                    }).switchIfEmpty(Mono.error(new JwtException("User not found!")));
                 });
+
     }
 }

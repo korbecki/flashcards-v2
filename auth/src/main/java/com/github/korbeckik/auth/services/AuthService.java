@@ -1,8 +1,12 @@
 package com.github.korbeckik.auth.services;
 
 import com.github.korbeckik.auth.dto.request.LoginRequest;
+import com.github.korbeckik.auth.dto.request.RegisterRequest;
 import com.github.korbeckik.auth.dto.response.AuthResponse;
+import com.github.korbeckik.auth.entity.UsersEntity;
+import com.github.korbeckik.auth.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +24,8 @@ public class AuthService {
     private final JWTService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final ReactiveUserDetailsService userDetailsService;
+    private final UsersRepository usersRepository;
+    private final ModelMapper modelMapper;
 
     public Mono<ResponseEntity<?>> login(@RequestBody LoginRequest loginRequest) {
         Mono<UserDetails> user = userDetailsService.findByUsername(loginRequest.email());
@@ -27,6 +33,10 @@ public class AuthService {
                 ? generateSuccessLoginResponse(userDetails)
                 : generateFailureLoginResponse()
         ).switchIfEmpty(generateFailureLoginResponse());
+    }
+
+    public Mono<UsersEntity> saveUser(RegisterRequest registerRequest) {
+        return usersRepository.save(modelMapper.map(encodePassword(registerRequest), UsersEntity.class));
     }
 
     private Mono<ResponseEntity<AuthResponse>> generateSuccessLoginResponse(UserDetails userDetails) {
@@ -40,5 +50,11 @@ public class AuthService {
 
     private Mono<ResponseEntity<?>> generateFailureLoginResponse() {
         return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+    }
+
+    private RegisterRequest encodePassword(RegisterRequest registerRequest) {
+        String encryptedPassword = passwordEncoder.encode(registerRequest.password());
+        return new RegisterRequest(registerRequest.name(), registerRequest.surname(),
+                registerRequest.userName(), encryptedPassword, registerRequest.email());
     }
 }

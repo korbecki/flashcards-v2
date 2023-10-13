@@ -52,7 +52,6 @@ public class JWTService {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-
     public String generateToken(String userName) {
         Map<String, Object> claims = Map.of();
         return createToken(claims, userName);
