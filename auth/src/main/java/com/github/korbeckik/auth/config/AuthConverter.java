@@ -13,8 +13,8 @@ public class AuthConverter implements ServerAuthenticationConverter {
     @Override
     public Mono<Authentication> convert(ServerWebExchange exchange) {
         return Mono.justOrEmpty(
-          exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION)
-        ).filter(s -> s.startsWith(Constants.JWT_TOKEN_PREFIX))
+                        exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION)
+                ).filter(s -> s.startsWith(Constants.JWT_TOKEN_PREFIX))
                 .map(s -> s.replaceFirst(Constants.JWT_TOKEN_PREFIX, Constants.EMPTY_STRING))
                 .map(BearerToken::new);
     }

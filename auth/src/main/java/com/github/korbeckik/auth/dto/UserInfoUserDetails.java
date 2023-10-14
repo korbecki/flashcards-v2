@@ -2,7 +2,6 @@ package com.github.korbeckik.auth.dto;
 
 import com.github.korbeckik.auth.entity.RolesEntity;
 import com.github.korbeckik.auth.entity.UsersEntity;
-import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

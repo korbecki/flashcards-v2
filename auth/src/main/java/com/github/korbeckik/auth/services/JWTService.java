@@ -1,10 +1,10 @@
 package com.github.korbeckik.auth.services;
 
 import com.github.korbeckik.auth.Constants;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SecureDigestAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -60,11 +60,11 @@ public class JWTService {
     private String createToken(Map<String, Object> claims, String email) {
         return Constants.JWT_TOKEN_PREFIX +
                 Jwts.builder()
-                .claims(claims)
-                .subject(email)
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
-                .signWith(getSignKey()).compact();
+                        .claims(claims)
+                        .subject(email)
+                        .issuedAt(new Date(System.currentTimeMillis()))
+                        .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
+                        .signWith(getSignKey()).compact();
     }
 
     private SecretKey getSignKey() {

@@ -9,5 +9,6 @@ public class MessageResponse extends ResponseEntity<MessageResponse.Response> {
         super(new Response(message), status);
     }
 
-        public record Response(String message) { }
+    public record Response(String message) {
+    }
 }

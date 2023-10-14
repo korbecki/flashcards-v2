@@ -1,12 +1,11 @@
-package com.github.korbeckik.auth.messages;
+package com.github.korbeckik.auth.i18n;
 
 import lombok.Getter;
 
+@Getter
 public enum MessagesEnum {
-    MESSAGE("2");
+    JWT_EXCEPTION("jwt.exception.message");
 
-
-    @Getter
     private final String code;
 
     MessagesEnum(String code) {

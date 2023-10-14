@@ -1,11 +1,7 @@
 package com.github.korbeckik.auth.config;
 
-import org.springframework.security.access.event.AbstractAuthorizationEvent;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-
-import java.util.Collection;
 
 public class BearerToken extends AbstractAuthenticationToken {
     final private String token;
