@@ -2,6 +2,8 @@ package com.github.korbeckik.auth.exception.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.korbeckik.auth.dto.response.MessageResponse;
+import com.github.korbeckik.auth.i18n.MessagesEnum;
+import com.github.korbeckik.auth.i18n.Translator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.core.io.buffer.DataBufferFactory;
@@ -25,11 +27,12 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
 
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
+        Locale locale = resolveLocale(exchange);
         MessageResponse exceptionHandler = exceptionHandlerList.stream()
                 .filter(handler -> handler.supportedException().isInstance(ex))
                 .findFirst()
-                .map(handler -> handler.prepareResponse(ex, resolveLocale(exchange)))
-                .orElse(prepareDefaultResponse());
+                .map(handler -> handler.prepareResponse(ex, locale))
+                .orElse(prepareDefaultResponse(locale));
         exchange.getResponse().setStatusCode(exceptionHandler.getStatusCode());
         return write(exchange.getResponse(), exceptionHandler.getBody());
     }
@@ -50,7 +53,7 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
                 }));
     }
 
-    private MessageResponse prepareDefaultResponse() {
-        return new MessageResponse("Unexpected Error!", HttpStatus.INTERNAL_SERVER_ERROR);
+    private MessageResponse prepareDefaultResponse(Locale locale) {
+        return new MessageResponse(Translator.translate(MessagesEnum.UNEXPECTED_ERROR, locale), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
