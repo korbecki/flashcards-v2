@@ -1,0 +1,46 @@
+plugins {
+    id 'java-library'
+    id 'org.liquibase.gradle' version '2.2.0'
+}
+
+group = 'com.github.korbecki.flashcards'
+version = '0.0.1'
+description = 'db'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+}
+
+dependencies {
+    liquibaseRuntime 'info.picocli:picocli:4.6.3'
+    liquibaseRuntime 'org.liquibase:liquibase-core:4.24.0'
+    liquibaseRuntime 'org.liquibase:liquibase-groovy-dsl:3.0.3'
+    liquibaseRuntime 'org.postgresql:postgresql:42.6.0'
+}
+apply plugin: "org.liquibase.gradle"
+
+Properties liquibaseProps = new Properties()
+liquibaseProps.load(new FileInputStream(file("liquibase.properties")))
+
+liquibase {
+    activities {
+        main {
+            classpath "src/main/resources"
+            changelogFile "src/main/resources/changelog/db.changelog.xml"
+            url liquibaseProps.getProperty('url')
+            username "postgres"
+            password "postgres"
+            driver "org.postgresql.Driver"
+            duplicateFileMode "WARN"
+            logLevel "SEVERE"
+        }
+    }
+}
