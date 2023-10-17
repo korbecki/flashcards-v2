@@ -1,9 +1,9 @@
 package com.github.korbeckik.auth.exception.handler;
 
 import com.github.korbeckik.auth.dto.response.MessageResponse;
-import com.github.korbeckik.auth.i18n.MessagesEnum;
-import com.github.korbeckik.auth.i18n.Translator;
 import io.jsonwebtoken.JwtException;
+import com.github.korbeckik.common.i18n.MessagesEnum;
+import com.github.korbeckik.common.i18n.Translator;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 

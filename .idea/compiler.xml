@@ -13,5 +13,16 @@
         <module name="flashcards.common.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="17">
+      <module name="auth" target="17" />
+      <module name="auth.main" target="17" />
+      <module name="auth.test" target="17" />
+      <module name="common" target="17" />
+      <module name="common.main" target="17" />
+      <module name="common.test" target="17" />
+      <module name="service" target="17" />
+      <module name="service.main" target="17" />
+      <module name="service.test" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -7,6 +7,10 @@ plugins {
 group = 'com.github.korbeckik'
 version = '0.0.1-SNAPSHOT'
 
+bootJar {
+    enabled = false
+}
+
 java {
     sourceCompatibility = '17'
 }

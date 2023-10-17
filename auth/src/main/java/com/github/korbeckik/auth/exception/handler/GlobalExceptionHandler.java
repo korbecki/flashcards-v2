@@ -2,8 +2,8 @@ package com.github.korbeckik.auth.exception.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.korbeckik.auth.dto.response.MessageResponse;
-import com.github.korbeckik.auth.i18n.MessagesEnum;
-import com.github.korbeckik.auth.i18n.Translator;
+import com.github.korbeckik.common.i18n.MessagesEnum;
+import com.github.korbeckik.common.i18n.Translator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.core.io.buffer.DataBufferFactory;

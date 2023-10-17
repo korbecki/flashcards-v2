@@ -1,4 +1,4 @@
-package com.github.korbeckik.auth.i18n;
+package com.github.korbeckik.common.i18n;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ResourceBundleMessageSource;
