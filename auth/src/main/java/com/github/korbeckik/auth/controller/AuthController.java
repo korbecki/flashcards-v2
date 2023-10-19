@@ -19,11 +19,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @GetMapping("/test")
-    public Mono<String> test() {
-        return Mono.just("Hello");
-    }
-
     @PostMapping("/login")
     public Mono<ResponseEntity<?>> login(@RequestBody LoginRequest loginRequest) {
         return authService.login(loginRequest);

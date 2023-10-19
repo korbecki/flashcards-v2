@@ -27,8 +27,23 @@ dependencies {
 }
 apply plugin: "org.liquibase.gradle"
 
+def buildProfile = System.properties['profile']
 Properties liquibaseProps = new Properties()
-liquibaseProps.load(new FileInputStream(file("liquibase.properties")))
+
+if (Objects.nonNull(buildProfile)) {
+    File file = file("src/main/resources/liquibase_" + buildProfile + ".properties");
+    if (file.exists()) {
+        liquibaseProps.load(new FileInputStream(file))
+        logger.quiet("Loaded profile: {}", buildProfile)
+    } else {
+        throw new GradleException("Profile: " + buildProfile + " not exists!")
+    }
+
+} else {
+    liquibaseProps.load(new FileInputStream(file("src/main/resources/liquibase.properties")))
+    logger.quiet("Loaded default profile")
+}
+
 
 liquibase {
     activities {
