@@ -9,7 +9,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 class AuthSpecification extends BaseSpecification {
 
     @Autowired
-    private WebTestClient webTestClient;
+    private WebTestClient webTestClient
 
     def "/register endpoint should return 2xx status"() {
         given: "RegisterRequest.class"
