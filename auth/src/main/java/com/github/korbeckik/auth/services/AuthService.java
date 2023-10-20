@@ -5,6 +5,7 @@ import com.github.korbeckik.auth.dto.request.RegisterRequest;
 import com.github.korbeckik.auth.dto.response.AuthResponse;
 import com.github.korbeckik.auth.entity.UsersEntity;
 import com.github.korbeckik.auth.repository.UsersRepository;
+import com.github.korbeckik.common.service.JWTService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;

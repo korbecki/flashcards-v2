@@ -23,7 +23,6 @@ public class UserService {
                 .publishOn(Schedulers.boundedElastic())
                 .map(usersEntity -> {
                     List<RolesEntity> rolesList = rolesRepository.findByUserId(usersEntity.getId()).collectList().block();
-//                    rolesRepository.findByUserId(usersEntity.getId()).collectList().subscribe(rolesList::addAll);
                     usersEntity.setRoles(rolesList);
                     return usersEntity;
                 });

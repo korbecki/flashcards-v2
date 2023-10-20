@@ -28,11 +28,26 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    //MAPPER
+    implementation 'org.modelmapper:modelmapper:3.1.1'
+    implementation 'org.modelmapper:modelmapper-module-record:1.0.0'
+
+    //JWT
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.2'
+
+    // UTILS
+    implementation 'org.apache.commons:commons-lang3:3.13.0'
+
 }
 
 tasks.named('test') {

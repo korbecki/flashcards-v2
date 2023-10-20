@@ -1,4 +1,4 @@
-package com.github.korbeckik.auth.config;
+package com.github.korbeckik.common.config;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.record.RecordModule;

@@ -30,6 +30,5 @@ class BaseSpecification extends Specification {
         registry.add("spring.liquibase.url", () -> postgreSQLContainer.getJdbcUrl())
     }
 
-
 }
 
