@@ -1,7 +1,7 @@
 package com.github.korbeckik.auth.exception.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.korbeckik.auth.dto.response.MessageResponse;
+import com.github.korbeckik.common.dto.MessageResponse;
 import com.github.korbeckik.common.i18n.MessagesEnum;
 import com.github.korbeckik.common.i18n.Translator;
 import lombok.RequiredArgsConstructor;

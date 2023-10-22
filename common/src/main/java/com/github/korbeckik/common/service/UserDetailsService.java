@@ -1,6 +1,6 @@
-package com.github.korbeckik.auth.services;
+package com.github.korbeckik.common.service;
 
-import com.github.korbeckik.auth.dto.UserInfoUserDetails;
+import com.github.korbeckik.common.dto.UserInfoUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;

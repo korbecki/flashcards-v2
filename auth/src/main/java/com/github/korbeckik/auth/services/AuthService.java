@@ -3,11 +3,11 @@ package com.github.korbeckik.auth.services;
 import com.github.korbeckik.auth.dto.request.LoginRequest;
 import com.github.korbeckik.auth.dto.request.RegisterRequest;
 import com.github.korbeckik.auth.dto.response.AuthResponse;
-import com.github.korbeckik.auth.entity.UsersEntity;
-import com.github.korbeckik.auth.repository.UsersRepository;
+import com.github.korbeckik.auth.mapper.RegisterRequestToUsersEntityMapper;
+import com.github.korbeckik.common.entity.UsersEntity;
+import com.github.korbeckik.common.repository.UsersRepository;
 import com.github.korbeckik.common.service.JWTService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final ReactiveUserDetailsService userDetailsService;
     private final UsersRepository usersRepository;
-    private final ModelMapper modelMapper;
+
 
     public Mono<ResponseEntity<?>> login(@RequestBody LoginRequest loginRequest) {
         Mono<UserDetails> user = userDetailsService.findByUsername(loginRequest.email());
@@ -37,7 +37,7 @@ public class AuthService {
     }
 
     public Mono<UsersEntity> saveUser(RegisterRequest registerRequest) {
-        return usersRepository.save(modelMapper.map(encodePassword(registerRequest), UsersEntity.class));
+        return usersRepository.save(RegisterRequestToUsersEntityMapper.INSTANCE.sourceToDestination(encodePassword(registerRequest)));
     }
 
     private Mono<ResponseEntity<AuthResponse>> generateSuccessLoginResponse(UserDetails userDetails) {

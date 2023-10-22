@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/flashcards.iml" filepath="$PROJECT_DIR$/.idea/modules/flashcards.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth/flashcards.auth.main.iml" filepath="$PROJECT_DIR$/.idea/modules/auth/flashcards.auth.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/flashcards.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/flashcards.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/flashcards.service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/service/flashcards.service.main.iml" />
     </modules>
   </component>
 </project>

@@ -1,7 +1,7 @@
-package com.github.korbeckik.auth.dto;
+package com.github.korbeckik.common.dto;
 
-import com.github.korbeckik.auth.entity.RolesEntity;
-import com.github.korbeckik.auth.entity.UsersEntity;
+import com.github.korbeckik.common.entity.RolesEntity;
+import com.github.korbeckik.common.entity.UsersEntity;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,21 +11,20 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
 public class UserInfoUserDetails implements UserDetails {
-    @Getter
     private final Long id;
     private final String email;
     private final String password;
 
-    @Getter
+
     private final String name;
 
-    @Getter
     private final String surname;
 
     private final String userName;
 
-    private final List<GrantedAuthority> authorities;
+    private final List<? extends GrantedAuthority> authorities;
 
     public UserInfoUserDetails(UsersEntity userInfo) {
         email = userInfo.getEmail();
@@ -38,7 +37,7 @@ public class UserInfoUserDetails implements UserDetails {
                 .stream()
                 .map(RolesEntity::getName)
                 .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

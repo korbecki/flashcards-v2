@@ -2,7 +2,7 @@ package com.github.korbeckik.auth.controller;
 
 import com.github.korbeckik.auth.dto.request.LoginRequest;
 import com.github.korbeckik.auth.dto.request.RegisterRequest;
-import com.github.korbeckik.auth.dto.response.MessageResponse;
+import com.github.korbeckik.common.dto.MessageResponse;
 import com.github.korbeckik.auth.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

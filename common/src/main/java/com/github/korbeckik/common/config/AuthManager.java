@@ -24,8 +24,8 @@ public class AuthManager implements ReactiveAuthenticationManager {
                 .flatMap(auth -> {
                     String email = jwtService.extractUsername(auth.getCredentials());
                     return userDetailsService.findByUsername(email).mapNotNull(u -> {
-                        if (jwtService.validateToken(auth.getCredentials(), u)) {
-                            return new UsernamePasswordAuthenticationToken(u.getUsername(), u.getPassword(), u.getAuthorities());
+                        if (Boolean.TRUE.equals(jwtService.validateToken(auth.getCredentials(), u))) {
+                            return new UsernamePasswordAuthenticationToken(u, u.getPassword(), u.getAuthorities());
                         }
                         return null;
                     }).switchIfEmpty(Mono.error(new JwtException("User not found!")));

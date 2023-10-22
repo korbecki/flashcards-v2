@@ -35,8 +35,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     //MAPPER
-    implementation 'org.modelmapper:modelmapper:3.1.1'
-    implementation 'org.modelmapper:modelmapper-module-record:1.0.0'
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
 
     //DATABASE
     implementation 'org.postgresql:r2dbc-postgresql:1.0.2.RELEASE'

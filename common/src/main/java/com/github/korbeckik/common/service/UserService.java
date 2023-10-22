@@ -1,9 +1,9 @@
-package com.github.korbeckik.auth.services;
+package com.github.korbeckik.common.service;
 
-import com.github.korbeckik.auth.entity.RolesEntity;
-import com.github.korbeckik.auth.entity.UsersEntity;
-import com.github.korbeckik.auth.repository.RolesRepository;
-import com.github.korbeckik.auth.repository.UsersRepository;
+import com.github.korbeckik.common.entity.RolesEntity;
+import com.github.korbeckik.common.entity.UsersEntity;
+import com.github.korbeckik.common.repository.RolesRepository;
+import com.github.korbeckik.common.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

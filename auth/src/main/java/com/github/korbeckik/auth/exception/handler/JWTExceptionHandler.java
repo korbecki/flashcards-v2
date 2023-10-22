@@ -1,6 +1,6 @@
 package com.github.korbeckik.auth.exception.handler;
 
-import com.github.korbeckik.auth.dto.response.MessageResponse;
+import com.github.korbeckik.common.dto.MessageResponse;
 import com.github.korbeckik.common.i18n.MessagesEnum;
 import com.github.korbeckik.common.i18n.Translator;
 import io.jsonwebtoken.JwtException;
