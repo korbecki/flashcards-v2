@@ -8,6 +8,7 @@ public class MessageResponse extends ResponseEntity<MessageResponse.Response> {
     public MessageResponse(String message, HttpStatusCode status) {
         super(new Response(message), status);
     }
+
     public MessageResponse(HttpStatusCode status) {
         super(status);
     }

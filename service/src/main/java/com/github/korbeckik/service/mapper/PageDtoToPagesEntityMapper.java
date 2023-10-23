@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(uses = {PageDtoToPagesEntityMapper.class})
-public abstract class   PageDtoToPagesEntityMapper implements com.github.korbeckik.common.mapper.Mapper<PageDto, PagesEntity> {
+public abstract class PageDtoToPagesEntityMapper implements com.github.korbeckik.common.mapper.Mapper<PageDto, PagesEntity> {
 
     @Override
     public Class<PageDto> getSource() {

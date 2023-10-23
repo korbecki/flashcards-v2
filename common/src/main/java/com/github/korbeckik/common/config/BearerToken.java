@@ -6,7 +6,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 
 @EqualsAndHashCode(callSuper = false)
 public class BearerToken extends AbstractAuthenticationToken {
-    private final  String token;
+    private final String token;
 
     public BearerToken(String token) {
         super(AuthorityUtils.NO_AUTHORITIES);

@@ -2,7 +2,6 @@ package com.github.korbeckik.common.mapper;
 
 import com.github.korbeckik.common.exception.MapperNotFoundException;
 import lombok.experimental.UtilityClass;
-import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ public class MapFactory {
 
     @SuppressWarnings("unchecked")
     public static <D> D map(Object source, Class<D> destination) {
-        return  mapperList
+        return mapperList
                 .stream()
                 .filter(mapperFilter(source, destination))
                 .findFirst()
@@ -30,7 +29,7 @@ public class MapFactory {
                         return mapper.destinationToSource(source);
                     }
                 })
-                .map(mapper -> (D)mapper)
+                .map(mapper -> (D) mapper)
                 .orElseThrow(() -> new MapperNotFoundException(source.getClass(), destination));
     }
 

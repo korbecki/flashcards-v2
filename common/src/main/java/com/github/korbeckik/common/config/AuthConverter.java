@@ -24,7 +24,7 @@ public class AuthConverter implements ServerAuthenticationConverter {
 
     private String removeBracelets(String str) {
         if (StringUtils.startsWith(str, "[")) {
-            return  StringUtils.substringBetween(str, "[", "]");
+            return StringUtils.substringBetween(str, "[", "]");
         }
         return str;
     }

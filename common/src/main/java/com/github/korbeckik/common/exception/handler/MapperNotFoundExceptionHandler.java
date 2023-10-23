@@ -1,22 +1,22 @@
-package com.github.korbeckik.auth.exception.handler;
+package com.github.korbeckik.common.exception.handler;
 
 import com.github.korbeckik.common.dto.MessageResponse;
+import com.github.korbeckik.common.exception.MapperNotFoundException;
 import com.github.korbeckik.common.i18n.MessagesEnum;
 import com.github.korbeckik.common.i18n.Translator;
-import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 
 @Component
-public class JWTExceptionHandler implements ExceptionHandler {
+public class MapperNotFoundExceptionHandler implements ExceptionHandler {
 
     public Class<? extends Exception> supportedException() {
-        return JwtException.class;
+        return MapperNotFoundException.class;
     }
 
     public MessageResponse prepareResponse(Throwable ex, Locale local) {
-        return new MessageResponse(Translator.translate(MessagesEnum.JWT_EXCEPTION, local), HttpStatus.UNAUTHORIZED);
+        return new MessageResponse(Translator.translate(MessagesEnum.UNEXPECTED_ERROR, local), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

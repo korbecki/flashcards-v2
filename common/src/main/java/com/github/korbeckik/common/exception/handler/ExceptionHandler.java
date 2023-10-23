@@ -1,4 +1,4 @@
-package com.github.korbeckik.auth.exception.handler;
+package com.github.korbeckik.common.exception.handler;
 
 import com.github.korbeckik.common.dto.MessageResponse;
 

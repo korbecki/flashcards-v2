@@ -1,10 +1,11 @@
 package com.github.korbeckik.service.entity;
 
 import lombok.Data;
-import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
+
+import java.time.LocalDateTime;
 
 @Data
 @Table("pages")
@@ -30,5 +31,5 @@ public class PagesEntity {
     private String answerImage;
 
     @Column("created_at")
-    private DateTime createdAt;
+    private LocalDateTime createdAt;
 }

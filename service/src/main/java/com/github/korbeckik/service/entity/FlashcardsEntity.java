@@ -1,13 +1,12 @@
 package com.github.korbeckik.service.entity;
 
-import com.github.korbeckik.common.entity.RolesEntity;
 import lombok.Data;
-import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class FlashcardsEntity {
     private Long createdBy;
 
     @Column("created_at")
-    private DateTime createdAt;
+    private LocalDateTime createdAt;
 
     @Transient
     private List<PagesEntity> pages = new ArrayList<>();

@@ -1,7 +1,6 @@
 package com.github.korbeckik.common.utils;
 
 import com.github.korbeckik.common.dto.UserInfoUserDetails;
-import com.github.korbeckik.common.entity.UsersEntity;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import reactor.core.publisher.Mono;
@@ -9,7 +8,7 @@ import reactor.core.publisher.Mono;
 @UtilityClass
 public class SecurityUtils {
 
-    public static Mono<UserInfoUserDetails> getLoggedUser(){
+    public static Mono<UserInfoUserDetails> getLoggedUser() {
         return ReactiveSecurityContextHolder.getContext().map(it -> it.getAuthentication().getPrincipal())
                 .cast(UserInfoUserDetails.class);
     }

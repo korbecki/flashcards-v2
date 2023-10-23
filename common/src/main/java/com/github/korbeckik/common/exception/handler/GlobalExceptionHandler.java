@@ -1,4 +1,4 @@
-package com.github.korbeckik.auth.exception.handler;
+package com.github.korbeckik.common.exception.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.korbeckik.common.dto.MessageResponse;
@@ -15,6 +15,7 @@ import org.springframework.web.server.i18n.LocaleContextResolver;
 import reactor.core.publisher.Mono;
 
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -26,6 +27,7 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
     private final LocaleContextResolver localeContextResolver;
 
     @Override
+
     public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
         Locale locale = resolveLocale(exchange);
         MessageResponse exceptionHandler = exceptionHandlerList.stream()
@@ -34,11 +36,12 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
                 .map(handler -> handler.prepareResponse(ex, locale))
                 .orElse(prepareDefaultResponse(locale));
         exchange.getResponse().setStatusCode(exceptionHandler.getStatusCode());
-        return write(exchange.getResponse(), exceptionHandler.getBody());
+        return write(exchange.getResponse(), Objects.requireNonNull(exceptionHandler.getBody()));
     }
 
     private Locale resolveLocale(ServerWebExchange exchange) {
-        return localeContextResolver.resolveLocaleContext(exchange).getLocale();
+        Locale locale = localeContextResolver.resolveLocaleContext(exchange).getLocale();
+        return Objects.isNull(locale) ? Locale.ENGLISH : locale;
     }
 
     private <T> Mono<Void> write(ServerHttpResponse httpResponse, T object) {
