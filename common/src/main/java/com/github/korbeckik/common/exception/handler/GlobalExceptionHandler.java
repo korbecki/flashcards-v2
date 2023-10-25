@@ -5,6 +5,7 @@ import com.github.korbeckik.common.dto.MessageResponse;
 import com.github.korbeckik.common.i18n.MessagesEnum;
 import com.github.korbeckik.common.i18n.Translator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
 
     private final ObjectMapper objectMapper;
@@ -34,7 +36,7 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
                 .filter(handler -> handler.supportedException().isInstance(ex))
                 .findFirst()
                 .map(handler -> handler.prepareResponse(ex, locale))
-                .orElse(prepareDefaultResponse(locale));
+                .orElse(prepareDefaultResponse(locale, ex));
         exchange.getResponse().setStatusCode(exceptionHandler.getStatusCode());
         return write(exchange.getResponse(), Objects.requireNonNull(exceptionHandler.getBody()));
     }
@@ -56,7 +58,8 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
                 }));
     }
 
-    private MessageResponse prepareDefaultResponse(Locale locale) {
+    private MessageResponse prepareDefaultResponse(Locale locale, Throwable ex) {
+        log.error(ex);
         return new MessageResponse(Translator.translate(MessagesEnum.UNEXPECTED_ERROR, locale), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
