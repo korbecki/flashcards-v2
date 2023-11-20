@@ -14,4 +14,6 @@ public interface UsersRepository extends R2dbcRepository<UsersEntity, Long> {
 
     @Query("SELECT u.user_name FROM users u where u.user_id = :userId")
     Mono<String> getUserNameById(@Param("userId") Long userId);
+
+    Mono<Boolean> existsByUserName(String userName);
 }

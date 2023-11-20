@@ -21,7 +21,7 @@ import spock.lang.Specification
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @EnableSharedInjection
 @EnableAspectJAutoProxy
-class BaseSpecification extends Specification {
+abstract class BaseSpecification extends Specification {
 
     @Autowired
     @Shared
@@ -37,10 +37,11 @@ class BaseSpecification extends Specification {
     @Shared
     protected String jwtToken
 
-    protected static PostgreSQLContainer<? extends PostgreSQLContainer> postgreSQLContainer = new PostgreSQLContainer<>(DockerImageName.parse("postgres:16.0"))
+    public static PostgreSQLContainer<? extends PostgreSQLContainer> postgreSQLContainer = new PostgreSQLContainer<>(DockerImageName.parse("postgres:16.0"))
             .withDatabaseName("flashcards")
             .withPassword("postgres")
             .withUsername("postgres")
+            .withReuse(false)
 
     static {
         postgreSQLContainer.start()
@@ -52,11 +53,16 @@ class BaseSpecification extends Specification {
         registry.add("spring.liquibase.url", () -> postgreSQLContainer.getJdbcUrl())
     }
 
-    def setupSpec() {
+    def setup() {
         println('run setupSpec()')
-        usersRepository.save(user)
-                .log("User Saved")
-                .block()
+        Boolean userExists = usersRepository.existsByUserName(user.getUserName()).block()
+        if(userExists == Boolean.FALSE) {
+            usersRepository.save(user)
+                    .log("User Saved")
+                    .block()
+        }
+
+
         jwtToken = jwtService.generateToken(user.getEmail())
     }
 }

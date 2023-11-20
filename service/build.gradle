@@ -61,6 +61,8 @@ dependencies {
     testImplementation 'org.spockframework:spock-spring:2.4-M1-groovy-4.0'
     implementation 'org.apache.groovy:groovy-all:4.0.15'
     testImplementation 'org.liquibase:liquibase-core:4.24.0'
+    testImplementation 'org.springframework.security:spring-security-test'
+
 
     //UTILS
     implementation 'joda-time:joda-time:2.12.5'
