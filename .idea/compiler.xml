@@ -26,4 +26,7 @@
       <module name="service.test" target="17" />
     </bytecodeTargetLevel>
   </component>
+  <component name="TypeScriptCompiler">
+    <option name="nodeInterpreterTextField" value="wsl://Ubuntu-20.04@/home/krystian/.nvm/versions/node/v20.9.0/bin/node" />
+  </component>
 </project>
