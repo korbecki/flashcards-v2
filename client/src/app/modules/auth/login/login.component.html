@@ -1,0 +1,25 @@
+<div class="login-wrapper mt-3">
+  <h2>Sign Up</h2>
+  <form #f='ngForm' (ngSubmit)="onLogin()">
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>E-mail</mat-label>
+        <input name="email" [(ngModel)]="userData.email" matInput placeholder="emaple@example.com" [formControl]="emailFormControl" required>
+        <mat-error *ngIf="emailFormControl.invalid">{{getEmailErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input  name="password" [(ngModel)]="userData.password" matInput [type]="hide ? 'password' : 'text'" [formControl]="passwordFormControl">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="passwordFormControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button mat-raised-button color="primary" type="submit">Sign Up</button>
+    </div>
+  </form>
+</div>
