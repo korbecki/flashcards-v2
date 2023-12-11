@@ -1,38 +1,44 @@
-<form>
+<form [formGroup]='registerForm'>
   <div class='form-input'>
     <mat-form-field appearance='fill'>
       <mat-label>Name</mat-label>
-      <input matInput>
+      <input matInput [formControl]='controls.name'>
+      <mat-error *ngIf='controls.name.invalid'>{{ getErrorMessage(controls.name) }}</mat-error>
     </mat-form-field>
   </div>
   <div class='form-input'>
     <mat-form-field appearance='fill'>
       <mat-label>Surname</mat-label>
-      <input matInput>
+      <input matInput [formControl]='controls.surname'>
+      <mat-error *ngIf='controls.surname.invalid'>{{ getErrorMessage(controls.surname) }}</mat-error>
     </mat-form-field>
   </div>
   <div class='form-input'>
     <mat-form-field appearance='fill'>
       <mat-label>User Name</mat-label>
-      <input matInput>
+      <input matInput [formControl]='controls.userName'>
+      <mat-error *ngIf='controls.userName.invalid'>{{ getErrorMessage(controls.userName) }}</mat-error>
     </mat-form-field>
   </div>
   <div class='form-input'>
     <mat-form-field appearance='fill'>
       <mat-label>E-mail</mat-label>
-      <input matInput type='email'>
+      <input matInput type='email' [formControl]='controls.email'>
+      <mat-error *ngIf='controls.email.invalid'>{{ getErrorMessage(controls.email) }}</mat-error>
     </mat-form-field>
   </div>
   <div class='form-input'>
     <mat-form-field appearance='fill'>
       <mat-label>Password</mat-label>
-      <input type='password' matInput>
+      <input type='password' matInput [formControl]='controls.password'>
+      <mat-error *ngIf='controls.password.invalid'>{{ getErrorMessage(controls.password) }}</mat-error>
     </mat-form-field>
   </div>
   <div class='form-input'>
     <mat-form-field appearance='fill'>
       <mat-label>Retype password</mat-label>
-      <input type='password' matInput>
+      <input type='password' matInput [formControl]='controls.retypePassword'>
+      <mat-error *ngIf='controls.retypePassword.invalid'>{{ getErrorMessage(controls.retypePassword) }}</mat-error>
     </mat-form-field>
   </div>
   <div class='d-flex justify-content-end'>
