@@ -31,7 +31,8 @@ def buildProfile = System.properties['profile']
 Properties liquibaseProps = new Properties()
 
 if (Objects.nonNull(buildProfile)) {
-    File file = file("src/main/resources/liquibase_" + buildProfile + ".properties");
+    File file = file("src/main/resources/liquibase_" + buildProfile + ".properties") as File;
+
     if (file.exists()) {
         liquibaseProps.load(new FileInputStream(file))
         logger.quiet("Loaded profile: {}", buildProfile)
@@ -40,7 +41,7 @@ if (Objects.nonNull(buildProfile)) {
     }
 
 } else {
-    liquibaseProps.load(new FileInputStream(file("src/main/resources/liquibase.properties")))
+    liquibaseProps.load(new FileInputStream(file("src/main/resources/liquibase.properties") as File))
     logger.quiet("Loaded default profile")
 }
 
@@ -48,14 +49,15 @@ if (Objects.nonNull(buildProfile)) {
 liquibase {
     activities {
         main {
-            classpath "src/main/resources"
-            changelogFile "src/main/resources/changelog/db.changelog.xml"
+//            classpath liquibaseProps.getProperty('classpath')
+            changelogFile 'changelog/db.changelog.xml'
             url liquibaseProps.getProperty('url')
-            username "postgres"
-            password "postgres"
-            driver "org.postgresql.Driver"
-            duplicateFileMode "WARN"
-            logLevel "SEVERE"
+            username liquibaseProps.getProperty('username')
+            password liquibaseProps.getProperty('password')
+            driver liquibaseProps.getProperty('driver')
+            duplicateFileMode liquibaseProps.getProperty('liquibase.duplicateFileMode')
+            logLevel liquibaseProps.getProperty('log-level')
+            searchPath 'db/src/main/resources/'
         }
     }
 }

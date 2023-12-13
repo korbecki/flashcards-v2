@@ -8,6 +8,8 @@ import { StoreModule } from '@ngrx/store';
 import { CoreModule } from './modules/core/core.module';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthModule } from './modules/auth/auth.module';
+import { authReducer } from './modules/auth/store/auth.reducer';
+import { AuthEffects } from './modules/auth/store/auth.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,8 +19,8 @@ import { AuthModule } from './modules/auth/auth.module';
     CoreModule,
     AuthModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot({ auth: authReducer }),
+    EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],

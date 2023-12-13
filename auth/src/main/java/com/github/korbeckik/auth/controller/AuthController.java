@@ -4,6 +4,7 @@ import com.github.korbeckik.auth.dto.request.LoginRequest;
 import com.github.korbeckik.auth.dto.request.RegisterRequest;
 import com.github.korbeckik.common.dto.MessageResponse;
 import com.github.korbeckik.auth.services.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +26,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public Mono<ResponseEntity<?>> login(@RequestBody LoginRequest loginRequest) {
+    public Mono<ResponseEntity<?>> login(@Valid @RequestBody LoginRequest loginRequest) {
         return authService.login(loginRequest);
     }
 
     @PostMapping("/register")
-    public Mono<ResponseEntity<?>> register(@RequestBody RegisterRequest registerRequest) {
+    public Mono<ResponseEntity<?>> register(@Valid @RequestBody RegisterRequest registerRequest) {
         return authService.saveUser(registerRequest)
                 .map(u -> new MessageResponse("User registered!", HttpStatus.CREATED));
     }

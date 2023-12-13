@@ -7,6 +7,7 @@
         <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleHome" value="/home/krystian/.sdkman/candidates/gradle/8.4" />
+        <option name="gradleJvm" value="temurin-17 (WSL) (2)" />
         <option name="modules">
           <set>
             <option value="//wsl.localhost/Ubuntu-20.04/home/krystian/Workspaces/Java/flashcards-v2" />
@@ -16,6 +17,7 @@
             <option value="//wsl.localhost/Ubuntu-20.04/home/krystian/Workspaces/Java/flashcards-v2/service" />
           </set>
         </option>
+        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

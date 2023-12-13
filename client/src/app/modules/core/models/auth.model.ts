@@ -1,0 +1,41 @@
+import { FormControl } from '@angular/forms';
+
+export interface IUser {
+  userName: string;
+  email: string;
+  role: string;
+}
+export class User implements IUser {
+  constructor(
+    public userName: string,
+    public email: string,
+    public role: string,
+  ) {}
+}
+
+export interface LoginData {
+  email: string;
+  password: string;
+}
+
+export interface RegisterData {
+  name: string;
+  surname: string;
+  userName: string;
+  email: string;
+  password: string;
+}
+
+export interface RegisterResponse {
+  timestamp: string;
+  message: string;
+  code: string;
+}
+
+export interface ResetPasswordData {
+  email: string;
+}
+export interface ChangePasswordData {
+  password: string;
+  uid: string;
+}

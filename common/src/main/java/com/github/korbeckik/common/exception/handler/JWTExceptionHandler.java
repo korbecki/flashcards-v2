@@ -1,6 +1,7 @@
 package com.github.korbeckik.common.exception.handler;
 
 import com.github.korbeckik.common.dto.MessageResponse;
+import com.github.korbeckik.common.dto.Response;
 import com.github.korbeckik.common.i18n.MessagesEnum;
 import com.github.korbeckik.common.i18n.Translator;
 import io.jsonwebtoken.JwtException;
@@ -16,7 +17,7 @@ public class JWTExceptionHandler implements ExceptionHandler {
         return JwtException.class;
     }
 
-    public MessageResponse prepareResponse(Throwable ex, Locale local) {
-        return new MessageResponse(Translator.translate(MessagesEnum.JWT_EXCEPTION, local), HttpStatus.UNAUTHORIZED);
+    public Response prepareResponse(Throwable ex, Locale local) {
+        return new Response(Translator.translate(MessagesEnum.JWT_EXCEPTION, local), HttpStatus.UNAUTHORIZED);
     }
 }

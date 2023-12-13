@@ -3,6 +3,7 @@ package com.github.korbeckik.common.dto;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
+@Deprecated
 public class MessageResponse extends ResponseEntity<MessageResponse.Response> {
 
     public MessageResponse(String message, HttpStatusCode status) {

@@ -1,4 +1,4 @@
-<form [formGroup]='registerForm'>
+<form [formGroup]='registerForm' (ngSubmit)='onRegister()'>
   <div class='form-input'>
     <mat-form-field appearance='fill'>
       <mat-label>Name</mat-label>
@@ -43,5 +43,8 @@
   </div>
   <div class='d-flex justify-content-end'>
     <button mat-raised-button color='primary'>SignUp</button>
+  </div>
+  <div class='alert alert-warning alert-dismissible fade show mt-2' role='alert' *ngIf='errorMessage$ | async as error'>
+    {{error}}
   </div>
 </form>
