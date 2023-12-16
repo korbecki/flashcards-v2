@@ -1,5 +1,6 @@
 package com.github.korbeckik.auth.services;
 
+import com.github.korbeckik.auth.amqp.RabbitMQProducer;
 import com.github.korbeckik.auth.dto.request.LoginRequest;
 import com.github.korbeckik.auth.dto.request.RefreshTokenRequest;
 import com.github.korbeckik.auth.dto.request.RegisterAcceptRequest;
@@ -37,6 +38,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final UsersRepository usersRepository;
     private final ActivateRepository activateRepository;
+    private final RabbitMQProducer rabbitMQProducer;
 
 
     public Mono<ResponseEntity<?>> login(LoginRequest loginRequest) {
@@ -65,7 +67,8 @@ public class AuthService {
     }
 
     public Mono<UsersEntity> saveUser(RegisterRequest registerRequest) {
-        return usersRepository.save(RegisterRequestToUsersEntityMapper.INSTANCE.sourceToDestination(encodePassword(registerRequest)));
+        return usersRepository.save(RegisterRequestToUsersEntityMapper.INSTANCE.sourceToDestination(encodePassword(registerRequest)))
+                .doOnNext(rabbitMQProducer::sendMessage);
     }
 
     public Mono<ActivateEntity> registerAccept(RegisterAcceptRequest request) {

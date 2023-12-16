@@ -15,5 +15,6 @@ public record RegisterRequest(
         @NotBlank
         String password,
         @Email
+        @UniqueValue(entityName = "users", fieldName = "email")
         String email) {
 }
