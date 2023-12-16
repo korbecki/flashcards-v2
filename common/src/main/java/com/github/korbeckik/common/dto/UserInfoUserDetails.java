@@ -23,6 +23,8 @@ public class UserInfoUserDetails implements UserDetails {
 
     private final String userName;
 
+    private final Long activateId;
+
     private final List<? extends GrantedAuthority> authorities;
 
     public UserInfoUserDetails(UsersEntity userInfo) {
@@ -32,6 +34,7 @@ public class UserInfoUserDetails implements UserDetails {
         name = userInfo.getName();
         surname = userInfo.getSurname();
         userName = userInfo.getUserName();
+        activateId = userInfo.getActivateId();
         authorities = userInfo.getRoles()
                 .stream()
                 .map(RolesEntity::getName)

@@ -34,6 +34,9 @@ public class UsersEntity {
     @Column("email")
     private String email;
 
+    @Column("activate_id")
+    private Long activateId;
+
     @Column("refresh_token")
     private String refreshToken;
 
