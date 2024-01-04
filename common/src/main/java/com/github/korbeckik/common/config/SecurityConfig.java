@@ -22,7 +22,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Value("#{'${spring.security.permit.all}'.replaceAll('\\s', '').split(',')}")
+    @Value("#{'${spring.security.permit.all:empty}'.replaceAll('\\s', '').split(',')}")
     private String[] permitAll;
 
     @Bean

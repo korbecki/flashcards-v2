@@ -1,3 +1,4 @@
+<app-background>
 <form [formGroup]='registerForm' (ngSubmit)='onRegister()'>
   <div class='form-input'>
     <mat-form-field appearance='fill'>
@@ -47,4 +48,8 @@
   <div class='alert alert-warning alert-dismissible fade show mt-2' role='alert' *ngIf='errorMessage$ | async as error'>
     {{error}}
   </div>
+  <div class='mt-2'  *ngIf='loading$ | async'>
+    Loading
+  </div>
 </form>
+</app-background>

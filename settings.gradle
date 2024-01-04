@@ -3,3 +3,4 @@ include 'auth'
 include 'service'
 include 'db'
 include "common"
+include "mail"

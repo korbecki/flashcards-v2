@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap } from 'rxjs';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-account-activation',
@@ -7,13 +9,27 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './account-activation.component.scss',
 })
 export class AccountActivationComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {}
+  errorMessage: null | string = null;
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe({
-      next: (param) => {
-        console.log(param.get('uid'));
-      },
-    });
+    this.route.paramMap
+      .pipe(
+        switchMap((params) =>
+          this.authService.activateAccount(params.get('uid') as string),
+        ),
+      )
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/signing']);
+        },
+        error: (err) => {
+          this.errorMessage = err;
+        },
+      });
   }
 }

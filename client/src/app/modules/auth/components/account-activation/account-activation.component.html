@@ -1,1 +1,6 @@
-<p>account-activation works!</p>
+<app-background>
+  <p *ngIf='!errorMessage'>Processing</p>
+<div class='alert alert-warning alert-dismissible fade show mt-2' role='alert' *ngIf='errorMessage'>
+  {{errorMessage}}
+</div>
+</app-background>

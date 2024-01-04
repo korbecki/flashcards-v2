@@ -12,7 +12,11 @@ export class AuthEffects {
       ofType(AuthActions.login),
       switchMap((action) => {
         return this.authService.login(action.loginData).pipe(
-          map((user) => AuthActions.loginSuccess({ user: { ...user } })),
+          map((user) => {
+            localStorage.setItem('JWT_TOKEN', user.body.jwtToken);
+            this.router.navigate(['/']);
+            return AuthActions.loginSuccess({ user: { ...user } });
+          }),
           catchError(() =>
             of(AuthActions.loginFailure({ error: 'Wystapił błąd.' })),
           ),
@@ -27,12 +31,28 @@ export class AuthEffects {
       switchMap((action) => {
         return this.authService.register(action.registerData).pipe(
           map(() => {
-            this.router.navigate(['/signup']);
+            this.router.navigate(['/signing']);
             return AuthActions.registerSuccess();
           }),
-          catchError(() =>
-            of(AuthActions.loginFailure({ error: 'Wystapił błąd.' })),
-          ),
+          catchError((err) => {
+            console.log(err);
+            return of(AuthActions.loginFailure({ error: 'Wystapił błąd.' }));
+          }),
+        );
+      }),
+    );
+  });
+
+  logout$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logout),
+      switchMap(() => {
+        return this.authService.logout().pipe(
+          map(() => {
+            this.router.navigate(['/signing']);
+            return AuthActions.logoutSuccess;
+          }),
+          catchError(() => of(AuthActions.logoutFailure())),
         );
       }),
     );

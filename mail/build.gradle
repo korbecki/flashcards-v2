@@ -1,0 +1,44 @@
+plugins {
+	id 'groovy'
+	id 'org.springframework.boot' version '3.2.0'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.github.korbeckik'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+//	implementation project(':common')
+
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+//	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+
+	implementation 'com.alibaba.fastjson2:fastjson2:2.0.43'
+	compileOnly 'com.aventrix.jnanoid:jnanoid:2.0.0'
+
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.amqp:spring-rabbit-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

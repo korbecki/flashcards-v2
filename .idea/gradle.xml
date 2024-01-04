@@ -10,11 +10,12 @@
         <option name="gradleJvm" value="temurin-17 (WSL) (2)" />
         <option name="modules">
           <set>
-            <option value="//wsl.localhost/Ubuntu-20.04/home/krystian/Workspaces/Java/flashcards-v2" />
-            <option value="//wsl.localhost/Ubuntu-20.04/home/krystian/Workspaces/Java/flashcards-v2/auth" />
-            <option value="//wsl.localhost/Ubuntu-20.04/home/krystian/Workspaces/Java/flashcards-v2/common" />
-            <option value="//wsl.localhost/Ubuntu-20.04/home/krystian/Workspaces/Java/flashcards-v2/db" />
-            <option value="//wsl.localhost/Ubuntu-20.04/home/krystian/Workspaces/Java/flashcards-v2/service" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/auth" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/db" />
+            <option value="$PROJECT_DIR$/mail" />
+            <option value="$PROJECT_DIR$/service" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

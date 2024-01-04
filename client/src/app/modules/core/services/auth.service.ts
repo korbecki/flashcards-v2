@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {
+  ActivationRequest,
   ChangePasswordData,
   IUser,
   LoginData,
+  LoginResponse,
   RegisterData,
   RegisterResponse,
   ResetPasswordData,
@@ -18,8 +20,8 @@ export class AuthService {
   apiUrl = `${environment.apiUrl}/auth`;
   constructor(private http: HttpClient) {}
 
-  login(body: LoginData): Observable<IUser> {
-    return this.http.post<IUser>(`${this.apiUrl}/login`, body);
+  login(body: LoginData): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, body);
   }
 
   logout(): Observable<RegisterResponse> {
@@ -31,10 +33,10 @@ export class AuthService {
   }
 
   activateAccount(uid: string): Observable<RegisterResponse> {
-    const params = new HttpParams().append('uid', uid);
-    return this.http.get<RegisterResponse>(`${this.apiUrl}/activate`, {
-      params,
-    });
+    return this.http.patch<RegisterResponse>(
+      `${this.apiUrl}/register/activation`,
+      new ActivationRequest(uid),
+    );
   }
 
   resetPassword(body: ResetPasswordData): Observable<RegisterResponse> {

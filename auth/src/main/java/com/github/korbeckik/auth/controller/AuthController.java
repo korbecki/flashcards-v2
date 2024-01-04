@@ -42,9 +42,9 @@ public class AuthController {
                 .map(u -> new Response("User registered!", HttpStatus.CREATED));
     }
 
-    @PatchMapping("/register/accept")
+    @PatchMapping("/register/activation")
     @Loggable
-    public Mono<ResponseEntity<?>> registerAccept(@Valid @RequestBody RegisterAcceptRequest registerRequest) {
+    public Mono<ResponseEntity<?>> registerActivation(@Valid @RequestBody RegisterAcceptRequest registerRequest) {
         return authService.registerAccept(registerRequest)
                 .map(it -> new Response(HttpStatus.CREATED));
     }

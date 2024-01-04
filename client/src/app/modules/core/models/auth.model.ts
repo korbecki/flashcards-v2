@@ -13,9 +13,26 @@ export class User implements IUser {
   ) {}
 }
 
+export class ActivationRequest {
+  constructor(public uid: string) {}
+}
+
 export interface LoginData {
   email: string;
   password: string;
+}
+
+export interface LoginResponse {
+  body: LoginResponseBody;
+  errors: string;
+}
+
+export interface LoginResponseBody {
+  name: string;
+  surname: string;
+  userName: string;
+  jwtToken: string;
+  refreshToken: string;
 }
 
 export interface RegisterData {

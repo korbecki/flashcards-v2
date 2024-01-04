@@ -7,10 +7,12 @@ import { RegisterComponent } from './components/register/register.component';
 import { AccountActivationComponent } from './components/account-activation/account-activation.component';
 import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
 import { PasswordRecoveryFormComponent } from './components/password-recovery-form/password-recovery-form.component';
+import { BackgroundComponent } from './components/background/background.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
+    BackgroundComponent,
     RegisterComponent,
     AccountActivationComponent,
     PasswordRecoveryComponent,
