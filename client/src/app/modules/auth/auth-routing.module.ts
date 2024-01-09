@@ -7,6 +7,7 @@ import { PasswordRecoveryComponent } from './components/password-recovery/passwo
 import { PasswordRecoveryFormComponent } from './components/password-recovery-form/password-recovery-form.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/signup', pathMatch: 'full' },
   { path: 'signing', component: LoginComponent },
   { path: 'signup', component: RegisterComponent },
   { path: 'activation/:uid', component: AccountActivationComponent },

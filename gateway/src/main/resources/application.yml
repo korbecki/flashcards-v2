@@ -22,6 +22,7 @@ spring:
           uri: http://${flashcards-service.host}:${flashcards-service.port}/
           predicates:
             - Path=/${flashcards-service.prefix}/**
+
 springdoc:
   api-docs:
     enabled: true

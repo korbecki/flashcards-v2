@@ -4,7 +4,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import {
   ActivationRequest,
   ChangePasswordData,
-  IUser,
   LoginData,
   LoginResponse,
   RegisterData,

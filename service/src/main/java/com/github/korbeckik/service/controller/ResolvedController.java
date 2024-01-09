@@ -17,7 +17,7 @@ public class ResolvedController {
     private final ResolvedService resolvedService;
     @PostMapping
     @Loggable
-    public Mono<ResponseEntity<?>> getPagesByFlashcardId(@RequestBody SaveAttemptRequest saveAttemptRequest) {
+    public Mono<ResponseEntity<?>> saveAttempt(@RequestBody SaveAttemptRequest saveAttemptRequest) {
         return resolvedService.saveAttempt(saveAttemptRequest).map(resolvedEntity -> {
             if (Objects.nonNull(resolvedEntity)){
                 return ResponseEntity.status(204).build();

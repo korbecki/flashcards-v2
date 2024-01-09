@@ -1,5 +1,3 @@
-import { FormControl } from '@angular/forms';
-
 export interface IUser {
   userName: string;
   email: string;
@@ -55,4 +53,13 @@ export interface ResetPasswordData {
 export interface ChangePasswordData {
   password: string;
   uid: string;
+}
+export interface FlashcardsListResponse {
+  id: number;
+  name: string;
+  description: string;
+  icon: string;
+  isPublic: boolean;
+  createdBy: string;
+  createdAt: string;
 }

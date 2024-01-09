@@ -14,7 +14,7 @@ export class AuthEffects {
         return this.authService.login(action.loginData).pipe(
           map((user) => {
             localStorage.setItem('JWT_TOKEN', user.body.jwtToken);
-            this.router.navigate(['/']);
+            this.router.navigate(['/home']);
             return AuthActions.loginSuccess({ user: { ...user } });
           }),
           catchError(() =>
