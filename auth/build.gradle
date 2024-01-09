@@ -37,10 +37,11 @@ dependencies {
     //UTILS
     implementation 'org.apache.commons:commons-lang3:3.14.0'
     implementation 'com.alibaba.fastjson2:fastjson2:2.0.43'
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.3.0'
+
 
     //JAKARTA
     implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
-
 
     //LOMBOK
     compileOnly 'org.projectlombok:lombok'

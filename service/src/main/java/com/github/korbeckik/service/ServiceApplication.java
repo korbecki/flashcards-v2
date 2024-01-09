@@ -1,10 +1,7 @@
 package com.github.korbeckik.service;
 
 import com.github.korbeckik.common.mapper.MapFactory;
-import com.github.korbeckik.service.mapper.FlashcardsEntityToFlashcardsList;
-import com.github.korbeckik.service.mapper.PageDtoToPagesEntityMapper;
-import com.github.korbeckik.service.mapper.PagesEntityToPagesListResponse;
-import com.github.korbeckik.service.mapper.SaveFlashardsRequestToFlashcardsEntityMapper;
+import com.github.korbeckik.service.mapper.*;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
@@ -30,7 +27,8 @@ public class ServiceApplication {
                 Mappers.getMapper(PageDtoToPagesEntityMapper.class),
                 Mappers.getMapper(SaveFlashardsRequestToFlashcardsEntityMapper.class),
                 Mappers.getMapper(FlashcardsEntityToFlashcardsList.class),
-                Mappers.getMapper(PagesEntityToPagesListResponse.class)
+                Mappers.getMapper(PagesEntityToPagesListResponse.class),
+                Mappers.getMapper(SaveAttemptRequestToResolvedEntity.class)
         );
     }
 }

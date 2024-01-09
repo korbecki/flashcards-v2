@@ -66,6 +66,8 @@ dependencies {
 
     //UTILS
     implementation 'joda-time:joda-time:2.12.5'
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.3.0'
+
 
     //ASPECT
     runtimeOnly 'org.aspectj:aspectjweaver:1.9.20.1'

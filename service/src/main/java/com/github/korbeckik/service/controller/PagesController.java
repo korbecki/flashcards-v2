@@ -1,5 +1,6 @@
 package com.github.korbeckik.service.controller;
 
+import com.github.korbeckik.common.aop.Loggable;
 import com.github.korbeckik.service.service.PagesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,15 @@ public class PagesController {
     private final PagesService pagesService;
 
     @GetMapping("/{flashcardId}")
+    @Loggable
     public Mono<ResponseEntity<?>> getPagesByFlashcardId(@PathVariable Long flashcardId) {
-        return pagesService.getPagesForFlashcardId(flashcardId).collectList().map(ResponseEntity::ok);
+        return pagesService.getPageByFlashcardId(flashcardId).map(ResponseEntity::ok);
     }
+
+    @GetMapping("/{flashcardId}/{previousPageId}")
+    @Loggable
+    public Mono<ResponseEntity<?>> getPagesByFlashcardIdAndPreviousPageId(@PathVariable Long flashcardId, @PathVariable Long previousPageId) {
+        return pagesService.getPageByFlashcardIdAndPreviousPageId(flashcardId, previousPageId).map(ResponseEntity::ok);
+    }
+
 }

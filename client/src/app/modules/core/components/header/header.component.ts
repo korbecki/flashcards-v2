@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { AppState } from '../../../../store/app.reducer';
-import { Store } from '@ngrx/store';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +7,17 @@ import { Store } from '@ngrx/store';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  constructor(private store: Store<AppState>) {}
-  logout() {}
+  @Input() title: string = '';
+  @Input() showSearch: boolean = false;
+  @Input() showLogout: boolean = false;
+
+  constructor(private router: Router) {}
+
+  logout() {
+    // Tutaj dodaj logikę wylogowania (np. usuń token sesji, przekieruj do strony logowania)
+    // ...
+
+    // Przekieruj do strony logowania
+    this.router.navigate(['/login']);
+  }
 }
