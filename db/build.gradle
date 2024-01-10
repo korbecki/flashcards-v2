@@ -49,7 +49,7 @@ if (Objects.nonNull(buildProfile)) {
 liquibase {
     activities {
         main {
-            classpath liquibaseProps.getProperty('classpath')
+            classpath 'src/main/resources'
             changelogFile 'changelog/db.changelog.xml'
             url liquibaseProps.getProperty('url')
             username liquibaseProps.getProperty('username')
@@ -57,6 +57,8 @@ liquibase {
             driver liquibaseProps.getProperty('driver')
             duplicateFileMode liquibaseProps.getProperty('liquibase.duplicateFileMode')
             logLevel liquibaseProps.getProperty('log-level')
+            searchPath 'db/src/main/resources/'
+
         }
     }
 }
